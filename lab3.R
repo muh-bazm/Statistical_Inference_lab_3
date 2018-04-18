@@ -32,7 +32,7 @@ repeat_quest4 <- function(pop){
 repeat_quest4()
 
 #Comparing the sample with the distributions
-qqplot(s, pop,col=c("red","blue"),lwd=3,type="p",main="QQPlot comparing the sample with the poisson distribution", xlab = "Sample points", ylab = "Population points")
+qqplot(s, pop,col=c("red","blue"),lwd=3,type="p",main="QQPlot comparing the sample with the poisson distribution", xlab = "Sample points", ylab = "Population points",xlim=c(0,15), ylim=c(0,15))
 legend("bottomright", inset=.05, title="Distributions", c("Sample","Population"), lwd=3, lty=c(3, 3), col=c("red","blue"))
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -42,3 +42,6 @@ samples = lapply(1:50, function(x){ c(sample(pop,500)) })
 means = lapply(samples, function(x){mean(x)})
 means = unlist( means )
 hist(means, col=c('brown', 'orange', 'chocolate'))
+
+qqplot(means, pop,col=c("red","blue"),lwd=3,type="p",main="QQPlot comparing the sample with the poisson distribution", xlab = "Sample points means", ylab = "Population points")
+qqnorm(means, col=c("red","blue"), lwd=3)
