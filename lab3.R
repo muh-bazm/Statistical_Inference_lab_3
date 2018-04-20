@@ -183,3 +183,40 @@ sum( unlist(c) )/length( unlist(c) )
 d = data.table( mosaicData::Weather )
 g = d[city=="Beijing",.(H=avg_humidity),]
 mean( unlist(g) )
+
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Q19:
+
+two_tail_z_dist_mean_hyp_test = function(sample, pop_mean, obs_mean, alpha){
+  print( paste("Null hypothesis: mean of population is equal to: ", pop_mean )  )
+  print( paste("Null hypothesis: mean of population is Not equal to: ", pop_mean )  )
+  
+  #Checking conditions
+  if( length(sample) < 30 ){
+    message("Sample size is lower than 30")
+    #return(NA)
+  }
+  if( (mean(sample)-median(sample))/sd(sample) != 0 ){
+    message("This sample is skewed")
+    #return(NA)
+  }
+  
+  z = (obs_mean - pop_mean)/(sd(sample)/sqrt(length(sample)) )
+  p_value =0
+  
+  if( z> 0 ){
+    p_value = 2*pnorm(z,lower.tail=FALSE)
+  }else{
+    p_value = 2*pnorm(z,lower.tail=TRUE)
+  }
+  
+  if( p_value < alpha ){
+    print( "Null hypothesis is rejected"  )
+  }else{
+    print( "Null hypothesis cannot be rejected."  )
+  }
+  
+  
+  
+}
